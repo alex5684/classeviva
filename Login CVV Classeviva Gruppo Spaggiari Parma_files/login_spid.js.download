@@ -1,0 +1,936 @@
+// 20221019-01 #v.55
+var vue = null;
+var last_active_element = null;
+	
+	
+$(document).ready(function()
+{
+	const msgShowTime = 20000;
+	const msgNShow = 5;
+	
+	var success_timeout;
+	var warning_timeout;
+	var error_timeout;
+	
+	vue = new Vue({
+		el: '#vue-app',
+		data: {
+			controls: {
+				overlay: {
+					visible: false
+				},
+				dialog:{
+					reins: {
+						confirmable: false,
+						visible: false
+					},
+					sam: {
+						visible: false
+					}
+				}
+			},
+			//is_app: is_app,
+			target: target,
+			nominativo_scuola: '',
+			luogo_scuola: '',
+			is_spid_enabled: is_spid_enabled,
+			LOGIN_SUCCESS: $LOGIN_SUCCESS,
+			LOGIN_WARNINGS: $LOGIN_WARNINGS,
+			LOGIN_ERRORS: $LOGIN_ERRORS,
+			lingua: {
+				show: false
+			},
+			accedi_btn_clicked: false,
+			invia_btn_clicked: false,
+			invia_usr_btn_clicked: false,
+			conferma_btn_clicked: false,
+			//show_pin: true,
+			password_dimenticata: false,
+			password_cambiotipo: 'email',
+			username_default: false,
+			lista_emails: [],
+			lista_telefoni: [],
+			spid_service_info: false,
+			mostra_video_pwddim: false,
+			loginSuccess: login_success,
+			loginWarnings: login_warnings,
+			loginErrors: login_errors,
+			errors: [],
+			show_errors: false,
+			login_fields: {
+				custcode: custcode,
+				login: '',
+				password: '',
+				email_riminder: '',
+				new_password_1: '',
+				new_password_2: ''
+			},
+			change_password: false,
+			mostra_video_genitori: false,
+			banners_desktop: {
+				banners: $BANNERS_DESKTOP,
+				idx: 0,
+				clicked: false
+			},
+			banners_mobile: {
+				banners: $BANNERS_MOBILE,
+				idx: 0,
+				clicked: false
+			},
+			mostra_video_help_spid: false,
+			cookieInfoaccepted: false,
+			cookie_personalizza: false,
+			cookie_flag_1: true,
+			cookie_flag_2: true,
+			cookie_flag_3: false
+			//cookie_flag_4: true
+		},
+	  
+		computed: {
+		},
+		
+		methods: {
+			//AUTH
+			authLogin: function(event)
+			{
+				event.preventDefault();
+				
+				var app = this;
+				app.accedi_btn_clicked = true;
+				
+				if (app.login_fields.login.trim().length==0 || app.login_fields.password.trim().length==0 )
+				{
+					app.errorMsg('CRD_ERR_INSERT_USERNAME_PASSWORD');
+					return false;
+				}
+				
+				//console.log("AuthApi::authenticate-1");
+				$.AuthApi({
+					action: "authenticate",                  // action richiesta 
+					authCid: app.login_fields.custcode,   // codice cliente (opzionale)
+					authLogin: app.login_fields.login,    // login
+					authPass: app.login_fields.password,  // password
+					authPin: $('[name="pin"]').val(),  // pin
+					authAllowAccountChoice: false,
+					onError: app._onError,
+					authCompleted: app._authCompleted,
+					onDialogOpen: app._onDialogOpen
+				});
+			},
+			successMsg: function(suc, l)
+			{
+				var app = this;
+				var list = (l !== undefined) ? l : null;
+				var success = {
+					id: '',
+					desc: ''
+				};
+				
+				app.accedi_btn_clicked = false;
+				app.invia_btn_clicked = false;
+				
+				if(app.LOGIN_SUCCESS[suc] !== undefined)
+				{
+					list = 'loginSuccess';
+					success.id = app.LOGIN_SUCCESS[suc];
+				}
+				
+				if(success.id.trim() == '')
+					success.desc = suc;
+	
+				if(list !== null)
+				{
+					app.loginWarnings = [];
+					app.loginErrors = [];
+					//app.loginWarningsSpid = [];
+					//app.loginErrorsSpid = [];
+					//app[list] = [];
+					app[list].push(success);
+					
+					if(app[list].length > msgNShow)
+						app[list].shift();
+					
+					setTimeout(function()
+					{
+						$('.login-success-container li:last-child').focus();
+					}, 50);
+					
+					clearTimeout(success_timeout);
+					success_timeout = setTimeout(function(){
+						app[list] = [];
+					}, msgShowTime);
+				}
+			},
+			warningMsg: function(war, l)
+			{
+				var app = this;
+				var list = (l !== undefined) ? l : null;
+				var warning = {
+					id: '',
+					desc: ''
+				};
+				
+				app.accedi_btn_clicked = false;
+				app.invia_btn_clicked = false;
+	
+				if(app.LOGIN_WARNINGS[war] !== undefined)
+				{
+					list = 'loginWarnings';
+					warning.id = app.LOGIN_WARNINGS[war];
+				}
+				
+				//if(app.SPID_WARNINGS[war] !== undefined)
+				//{
+				//	list = 'loginWarningsSpid';
+				//	warning.id = app.SPID_WARNINGS[war];
+				//}
+				
+				if(warning.id.trim() == '')
+					warning.desc = war;
+				
+				if(list !== null)
+				{
+					app.loginSuccess = [];
+					app.loginErrors = [];
+					//app.loginErrorsSpid = [];
+					//app[list] = [];
+					app[list].push(warning);
+					
+					if(app[list].length > msgNShow)
+						app[list].shift();
+					
+					setTimeout(function()
+					{
+						$('.login-warnings-container li:last-child').focus();
+					}, 50);
+					
+					clearTimeout(warning_timeout);
+					warning_timeout = setTimeout(function(){
+						app[list] = [];
+					}, msgShowTime);
+				}
+			},
+			errorMsg: function(err, l)
+			{
+				var app = this;
+				var list = (l !== undefined) ? l : null;
+				var error = {
+					id: '',
+					desc: ''
+				};
+				
+				app.accedi_btn_clicked = false;
+				app.invia_btn_clicked = false;
+				
+				if(app.LOGIN_ERRORS[err] !== undefined)
+				{
+					list = 'loginErrors';
+					error.id = app.LOGIN_ERRORS[err];
+				}
+				
+				//if(app.SPID_ERRORS[err] !== undefined)
+				//{
+				//	list = 'loginErrorsSpid';
+				//	error.id = app.SPID_ERRORS[err];
+				//}
+				
+				if(error.id.trim() == '')
+					error.desc = err;
+				
+				if(list !== null)
+				{
+					app.loginSuccess = [];
+					app.loginWarnings = [];
+					//app[list] = [];
+					app[list].push(error);
+					
+					if(app[list].length > msgNShow)
+						app[list].shift();
+					
+					setTimeout(function()
+					{
+						$('.login-errors-container li:last-child').focus();
+					}, 50);
+					
+					clearTimeout(error_timeout);
+					error_timeout = setTimeout(function(){
+						app[list] = [];
+					}, msgShowTime);
+				}
+			},
+			_onError: function(xhr, status, error)
+			{
+				//console.log("_onError() :",xhr, status, error);
+				var app = this;
+				
+				var msgstr="";
+				if (typeof error == "string" && error)
+				{
+					msgstr += error;
+				}
+				if (typeof xhr != "undefined" && xhr != null && xhr.status)
+				{
+					msgstr += ' '+xhr.status;
+				}
+				if (typeof status == "string")
+				{
+					if ( status.match(/^(timeout|session|exception)$/i) )
+					{
+						msgstr = "Si è verificato un problema con la connessione internet, si prega di riprovare! ("+status[0]+")";
+					}
+					else if (status=='error' && xhr.status==503)
+					{
+						msgstr = 'CRD_ERR_TOO_MANY_FAILURES'
+					}
+					//else if ( status=='error' && xhr.status==403 && xhr.responseJSON?.data?.auth?.errors?.length > 0 )
+					else if ( status=='error' && xhr.status==403 
+						&& xhr.responseJSON !== undefined
+						&& xhr.responseJSON.data !== undefined
+						&& xhr.responseJSON.data.errors !== undefined
+						&& xhr.responseJSON.data.auth.errors.length > 0 
+					)
+					{
+						msgstr = xhr.responseJSON.data.auth.errors[0]
+					}
+				}
+				
+				this.errorMsg(msgstr, 'loginErrors');
+			},
+			_onDialogOpen: function(code, dialog)  // callback apertura dialog (opzionale)
+			{
+				$(dialog).dialog('close'); //CHIUDE DIALOG STANDARD AUTHAPI MIMMO
+				
+				var app = this;
+				
+				if(code=="changePasswordDialog"){
+					app.warningMsg('CRD_WAR_CHANGE_PASSWORD');
+					app.change_password = true;
+					last_active_element = document.activeElement;
+					
+					$('#recaptcha-script').remove();
+				
+					setTimeout(function()
+					{
+						$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					}, 50);
+				}
+				if(code=='accountChoiceDialog'){
+					// not used
+				}
+			},
+			_authCompleted: function(json)
+			{
+				var app = this;
+				//console.log("_authCompleted() :", json);
+				
+				if (typeof json != "undefined" && json != null)
+				{
+					if (json.error !== undefined && json.error.length) {
+						var xerr=json.error.toString();
+						if (xerr.match(/^21[0-3]\/.*$/)) {
+							// session-error-codes
+							app._onError(null, "session", xerr); 
+						}else{
+							// other-error-codes
+							app._onError(null, "exception", xerr);
+						}
+						return;
+					}
+				
+					if (json.data !== undefined)
+					{
+						if (!json.data.auth.loggedIn)
+						{
+							if (json.data.auth.verified)
+							{
+								if (json.data.pfolio !== undefined && json.data.pfolio.fullList !== undefined && json.data.pfolio.fullList.length>1) {
+									//Ho più di un profilo
+									var xaccount ='';
+									// carico il cookie dell identita
+									var ck_id = getCookie("webidentity");
+									//cilco tra tutte le identita
+									$.each(json.data.pfolio.fullList, function() {								
+										var uq_id= this.account_string;
+									//se una identita e ugugale al cookie la imposto con xaccount
+										if (ck_id==uq_id) {
+											xaccount = this.account_string;
+										}
+									});
+									//se non ho impostato un x account prendo il primo
+									if (xaccount =='') {
+										xaccount = json.data.pfolio.fullList[0].account_string;
+									}
+									is_pfolio=1;
+									// seconda chiamata con il primo della lista
+									//console.log("AuthApi::samauthenticate-1 ");
+									$.AuthApi({
+										action: "samauthenticate", // action richiesta 
+										authLogin: xaccount,       // login
+										onError: app._onError, 
+										authCompleted: app._authCompleted,
+										onDialogOpen: app._onDialogOpen
+									});
+									
+								}else{
+									// TODO! nessun utente in portfolio: che fare ??
+								}
+							}else if (json.data.auth.errors!='') {
+								
+								if (json.data.auth.actionRequested == 'changePasswordDialog') {
+									//code
+								}else{
+									var errore = json.data.auth.errors[0];
+									if(parseInt(app.login_fields.login.trim())==app.login_fields.login.trim()){
+										errore = 'Attenzione: se prima usavate' +
+										' il codice scuola e utente solo numerico, ora il codice scuola' +
+										' va scritto nel campo login seguito da un punto' +
+										" e da utente numerico.<br>Esempio: MIXX0005.123456";
+									}
+									app.errorMsg(errore, 'loginErrors');
+								}
+							}
+						}
+						else
+						{
+							//document.cookie = "weblogin="+ app.login_fields.login.trim() +";path=/";
+							// carico il cookie dell identita
+							//var webrole = getCookie("webrole");
+							//$('form#fform').attr("action", '/home/app/default/login_ok_redirect.php'); 
+							//$('form#fform').submit();
+							window.location.href = '/home/app/default/login_ok_redirect.php';
+						}
+					}
+					else
+					{
+						app.errorMsg('Errore non previsto (a)', 'loginErrors');
+						return;
+					}
+				}
+				else
+				{
+					app.errorMsg('Errore non previsto (b)', 'loginErrors');
+					return;
+				}
+			},
+			//========================================================================================================
+			//password dimenticata
+			passwordDimenticata: function()
+			{
+				this.password_dimenticata = true;
+				
+				last_active_element = document.activeElement;
+				
+				$('#recaptcha-script').remove();
+				
+				setTimeout(function()
+				{
+					$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+				}, 50);
+			},
+			showVideoPwddim: function()
+			{
+				this.mostra_video_pwddim = true;
+				setTimeout(function()
+				{
+					$('#iframe_pwd_dimenticata').attr('src', $('#iframe_pwd_dimenticata').attr('xsrc'));
+				}, 50);
+			},
+			inviaMail: function(event)
+			{
+				event.preventDefault();
+				
+				var app = this;
+				var data = $('#pwd-reminder').serialize();
+				
+				app.invia_btn_clicked = true;
+				
+				var post = $.post('/sso/app/default/sam.php?a=akRSPWRQ', data, function(res)
+				{
+					
+					if(res.status)
+						app.successMsg('CRD_SUC_PASSWORD_REMIND_EMAIL_SENT');
+					else
+						app.errorMsg(res.err, 'loginErrors');
+					
+					
+					$('.pwd-remind-captcha-container').html('');
+					$('.pwd-remind-captcha-container').html('<div class="g-recaptcha" data-sitekey="6LchJPkUAAAAANAZrvwiloiDmeY2zBJWqZ_rOFJD"></div>');
+					$('#recaptcha-script').remove();
+						
+					setTimeout(function()
+					{
+						$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					}, 50);
+					//if (res.data == 9) // significa che devo cercare con gli username
+					//{
+					//	$('#recaptcha-script').remove();
+					//	
+					//	setTimeout(function()
+					//	{
+					//		$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					//	}, 50);
+					//}
+					
+				}, 'json');
+				
+				post.fail(function(error)
+				{
+					console.log(error);
+					app.errorMsg('CRD_ERR_PASSWORD_REMIND_RECAPTCHA_FAIL');
+				});
+			},
+			
+			inviaUsername: function(event)
+			{
+				event.preventDefault();
+				var app = this;
+				this.username_default = this.login_fields.username_riminder;
+				var data = $('#usr-reminder').serialize();
+				
+				app.lista_emails = [];
+				app.lista_telefoni = [];
+				app.invia_usr_btn_clicked = true;
+				
+				var post = $.post('/sso/app/default/sam.php?a=akRSPWURQ', data, function(res)
+				{
+					app.invia_usr_btn_clicked = false;
+					
+					$('.usr-remind-captcha-container').html('');
+					$('.usr-remind-captcha-container').html('<div class="g-recaptcha" data-sitekey="6LchJPkUAAAAANAZrvwiloiDmeY2zBJWqZ_rOFJD"></div>');
+					$('#recaptcha-script').remove();
+						
+					setTimeout(function()
+					{
+						$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					}, 50);
+					
+					if(res.status && res.data.reminder.lista_emails !== undefined && res.data.reminder.lista_emails.length > 0)
+					{
+						app.lista_emails = res.data.reminder.lista_emails;
+						app.lista_telefoni = res.data.reminder.lista_telefoni;
+					}
+					else{
+						if (!res.status && res.err != '') {
+							app.errorMsg(res.err, 'loginErrors');
+						} else {
+							app.errorMsg('CRD_ERR_USERNAME_REMIND_EMPTY_MAIL_SET');
+						}
+						
+					}
+				}, 'json');
+				
+				post.fail(function(error)
+				{
+					app.invia_usr_btn_clicked = false;
+					console.log(error);
+					app.errorMsg('CRD_ERR_PASSWORD_REMIND_RECAPTCHA_FAIL');
+					$('.usr-remind-captcha-container').html('');
+					$('.usr-remind-captcha-container').html('<div class="g-recaptcha" data-sitekey="6LchJPkUAAAAANAZrvwiloiDmeY2zBJWqZ_rOFJD"></div>');
+					$('#recaptcha-script').remove();
+						
+					setTimeout(function()
+					{
+						$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					}, 50);
+				});
+			},
+			confermaUsernameEmail: function(event)
+			{
+				//event.preventDefault();
+				//
+				//if (this.username_default != this.login_fields.username_riminder)
+				//{
+				//	
+				//}
+				
+				event.preventDefault();
+				
+				var app = this;
+				var data = $('#usr-reminder').serialize();
+				// CONTROLLO SU UID, VA MESSO QUELLO DEFAULT
+				app.invia_btn_clicked = true;
+				data.uid = app.username_default;
+				
+				
+				
+				var post = $.post('/sso/app/default/sam.php?a=akRSPWUMRQ', data, function(res)
+				{
+					if(res.status){
+						app.successMsg('CRD_SUC_PASSWORD_REMIND_EMAIL_NOSAM_SENT');
+						app.lista_emails = [];
+						app.lista_telefoni = [];
+					}
+					else
+						app.errorMsg(res.err, 'loginErrors');
+					
+					$('.usr-remind-captcha-container').html('');
+					$('.usr-remind-captcha-container').html('<div class="g-recaptcha" data-sitekey="6LchJPkUAAAAANAZrvwiloiDmeY2zBJWqZ_rOFJD"></div>');
+					$('#recaptcha-script').remove();
+						
+					setTimeout(function()
+					{
+						$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					}, 50);
+					
+				}, 'json');
+				
+				post.fail(function(error)
+				{
+					console.log(error);
+					app.errorMsg('CRD_ERR_PASSWORD_REMIND_RECAPTCHA_FAIL');
+				});
+				
+				
+			},
+			
+			//========================================================================================================
+			//cambio password
+			changePassword: function()
+			{
+				var app = this;
+				var data = $('#changepwdform').serialize();
+				
+				app.conferma_btn_clicked = true;
+				
+				var postData = {
+					'login': app.login_fields.login,
+					'password': app.login_fields.password,
+					'np1': app.login_fields.new_password_1, 
+					'np2': app.login_fields.new_password_2,
+					'g-recaptcha-response': $('[name="g-recaptcha-response"]').val()
+				};
+				
+				if(postData.np1.trim() != postData.np2.trim())
+				{
+					app.errorMsg('CRD_ERR_USERNAME_PASSWORD_VALIDATION');
+					app.conferma_btn_clicked = false;
+					return;
+				}
+				
+				var post = $.post('/home/app/default/pwchangedialog.php?action=SAVE', postData, function(response)
+				{
+					app.conferma_btn_clicked = false;
+					
+					if(response=="OK")
+					{
+						app.successMsg('CRD_SUC_PASSWORD_CHANGED');
+						app.change_password = false;
+					}
+					else
+					{
+						//app.errorMsg(app.LOGIN_ERRORS['CREDENZIALI_PASSWORD_CHANGE_FAIL']);
+						
+						var last_char = response.trim().slice(-1);
+						response = (last_char == '.') ? response.trim() : response.trim()+'.';
+						app.errorMsg(response, 'loginErrors');
+					}
+					
+					$('.pwd-change-captcha-container').html('');
+					$('.pwd-change-captcha-container').html('<div class="g-recaptcha" data-sitekey="6LchJPkUAAAAANAZrvwiloiDmeY2zBJWqZ_rOFJD"></div>');
+					$('#recaptcha-script').remove();
+						
+					setTimeout(function()
+					{
+						$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+					}, 50);
+				});
+				
+				post.fail(function(error)
+				{
+					app.conferma_btn_clicked = false;
+					console.log(error);
+					app.errorMsg('CRD_ERR_PASSWORD_REMIND_RECAPTCHA_FAIL');
+				});
+			},
+			//========================================================================================================
+			//BANNER
+			bannerPrev: function(banner_list)
+			{
+				var app = this;
+				var n = (((app[banner_list].idx - 1)%app[banner_list].banners.length) + app[banner_list].banners.length)%app[banner_list].banners.length;
+				var banner_container = null;
+				
+				if(!app[banner_list].clicked)
+				{
+					if(banner_list == 'banners_desktop')
+						banner_container = '.banner-container.desktop';
+					else if(banner_list == 'banners_mobile')
+						banner_container = '.banner-container.mobile';
+					
+					if(banner_container !== null)
+					{
+						app[banner_list].clicked = true;
+						$(banner_container+' .banner-content[idx="'+app[banner_list].idx+'"]').hide("slide", { direction: "right" }, 500);
+						app[banner_list].idx = n;
+						$(banner_container+' .banner-content[idx="'+app[banner_list].idx+'"]').show("slide", { direction: "left" }, 500, function()
+						{
+							app[banner_list].clicked = false;
+						});
+					}
+				}
+			},
+			bannerNext: function(banner_list)
+			{
+				var app = this;
+				var n = (((app[banner_list].idx + 1)%app[banner_list].banners.length) + app[banner_list].banners.length)%app[banner_list].banners.length;
+				var banner_container = null;
+				
+				if(!app[banner_list].clicked)
+				{
+					if(banner_list == 'banners_desktop')
+						banner_container = '.banner-container.desktop';
+					else if(banner_list == 'banners_mobile')
+						banner_container = '.banner-container.mobile';
+					
+					if(banner_container !== null)
+					{
+						app[banner_list].clicked = true;
+						$(banner_container+' .banner-content[idx="'+app[banner_list].idx+'"]').hide("slide", { direction: "left" }, 500);
+						app[banner_list].idx = n;
+						$(banner_container+' .banner-content[idx="'+app[banner_list].idx+'"]').show("slide", { direction: "right" }, 500, function()
+						{
+							app[banner_list].clicked = false;
+						});
+					}
+				}
+			},
+			showBanner: function(banner_list)
+			{
+				$('.banner-content[idx="'+this[banner_list].idx+'"]').show();
+			},
+			//========================================================================================================
+			//COOKIE
+			cookieAccept: function(value)
+			{
+				var cookieValue = 3; // cookie tecnici + analitici anonimizzati
+				
+				// se viene passato un valore preciso alla funzione, imposto quello come valore del cookie, altrimenti lo calcolo dalle preferenze
+				if(value !== undefined)
+					cookieValue = value;
+				else
+					cookieValue += (this.cookie_flag_3) ? 4 : 0; // cookie analitici non anonimizzati
+				
+				const expireAfter = new Date();
+				expireAfter.setDate(expireAfter.getDate() + 30);
+				document.cookie = "cookie_consent=" + cookieValue + "; domain=" + baseDomain + "; expires=" + expireAfter.toUTCString() + "; path=/; SameSite=Lax;";
+				
+				this.cookieInfoaccepted = true;
+			},
+			cookieClose: function()
+			{
+				this.cookieInfoaccepted = true;
+			},
+			objectIncludes: function(obj, value)
+			{
+				var found = false;
+				for (var i in obj)
+				{
+					if((typeof obj[i] === 'object' || Array.isArray(obj[i])) && objectIncludes(obj[i], value))
+					{
+						found = true;
+						break;
+					}
+					else if(obj[i] == value)
+					{
+						found = true;
+						break;
+					}
+				}
+				
+				return found;
+			}
+		},
+		watch:
+		{
+			'selected' : {
+				handler: function () {
+					//console.log(this)
+					//if(this.show){
+					//	this.getList();
+					//	shadowPagePopup();
+					//}else{
+					//	$("#shadow_page_popup").hide();
+					//}
+				},
+				deep : true
+			},
+			password_cambiotipo: {
+				handler: function(newValue) {
+					if (newValue == 'username') {
+						$('.usr-remind-captcha-container').html('');
+						$('.usr-remind-captcha-container').html('<div class="g-recaptcha" data-sitekey="6LchJPkUAAAAANAZrvwiloiDmeY2zBJWqZ_rOFJD"></div>');
+						$('#recaptcha-script').remove();
+							
+						setTimeout(function()
+						{
+							$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+						}, 50);
+					} else {
+						if (newValue == 'email') {
+							$('#recaptcha-script').remove();
+							
+							setTimeout(function()
+							{
+								$('head').append('<script id="recaptcha-script" src="https://www.google.com/recaptcha/api.js"></script>');
+							}, 50);
+						}
+					}
+				},
+				deep: true
+			},
+			
+			
+		}
+	});
+	
+	//recupero info scuola se ho i dati del custcode
+	if(hinfoVar)
+    {
+        $.ajax({
+			url: 'hinfo.php?a=cname',
+			data:{
+				cid: hinfoVar.cid, 
+				ctr: hinfoVar.ctr
+			},
+			type : 'POST',
+			timeout: 5000,
+            dataType: "json",
+			success: function(json)
+			{
+				vue.nominativo_scuola = json.des+' '+json.tit;
+				vue.luogo_scuola = json.place;
+				//console.log(json)
+				var is_privato = parseInt(json.privato) ? true : false;
+				var is_opt_spid_enabled = parseInt(json.opt_spid_enabled) ? true : false;
+				
+				vue.is_spid_enabled = !is_privato && is_opt_spid_enabled;
+			},
+			error: function()
+			{
+			}
+		});
+    }
+	
+	if(getCookie('cookie_consent').trim() != '')
+		vue.cookieInfoaccepted = true;
+	
+	vue.showBanner('banners_desktop');
+	vue.showBanner('banners_mobile');
+
+	$(document).click(function(event)
+	{
+		if($(event.target).closest('.dropdown-menu').length <= 0 && $(event.target).closest('.nav-lingua.dropdown').length <= 0)
+			vue.lingua.show = false;
+	});
+	
+	$('.expand').expander({
+        slicePoint: 650,
+        expandText: 'Leggi tutto',
+        userCollapseText: 'Chiudi',
+    });
+	
+	setTimeout(function()
+	{
+		$('.prj-desc').each(function()
+		{
+			$(this).css('min-height', $(this).height());
+		});
+		
+		$('.prj-desc .more-link, .prj-desc .less-link').attr('tabindex', '-1');
+	}, 50);
+});
+
+var showVideoHelpSpid = function()
+{
+	vue.mostra_video_help_spid = true;
+	setTimeout(function()
+	{
+		$('#iframe_help_spid').attr('src', $('#iframe_help_spid').attr('xsrc'));
+	}, 50);
+}
+
+$(document).keydown(function(e)
+{
+	var el = document.activeElement;
+	
+	if(el.hasAttribute('tab_item_for') && (e.which == 13 || (e.which == 32 && !$(el).is("input") && !$(el).is("textarea"))))
+	{
+		if(el.tagName !== 'SELECT')
+		{
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		
+		var event_el = ($(el).attr('tab_item_for') == 'this') ? el : $(el).attr('tab_item_for');
+		
+		$(event_el).focus();
+		$(event_el).click();
+	}
+});
+
+var backToLastFocus = function()
+{
+	setTimeout(function()
+	{
+		if(last_active_element !== null && $(last_active_element).length > 0)
+			$(last_active_element).focus();
+	}, 50);
+}
+
+var getCookie = function(name)
+{
+	if(document.cookie.length > 0)
+	{
+		var inizio = document.cookie.indexOf(name + "=");
+		if (inizio != -1)
+		{
+			inizio = inizio + name.length + 1;
+			var fine = document.cookie.indexOf(";",inizio);
+			if (fine == -1) fine = document.cookie.length;
+			return unescape(document.cookie.substring(inizio,fine));
+		}
+		else
+			return "";
+	}
+	return "";
+}
+
+var shuffleArray = function(array)
+{
+	var currentIndex = array.length,  randomIndex;
+	
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex)
+	{
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+	  
+		// And swap it with the current element.
+		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+	}
+	
+	return array;
+}
+
+function cloneObject(obj)
+{
+    // basic type deep copy
+    if (obj === null || obj === undefined || typeof obj !== 'object')  {
+        return obj
+    }
+    // array deep copy
+    if (obj instanceof Array) {
+        var cloneA = [];
+        for (var i = 0; i < obj.length; ++i) {
+            cloneA[i] = cloneObject(obj[i]);
+        }              
+        return cloneA;
+    }                  
+    // object deep copy
+    var cloneO = {};   
+    for (var i in obj) {
+        cloneO[i] = cloneObject(obj[i]);
+    }                  
+    return cloneO;
+}

@@ -1,0 +1,11 @@
+.app-container,
+.main-container
+{
+	background-color: #CC1020;
+}
+
+.main-tabs>.main-tab.active,
+.a-teamviewer:hover
+{
+	color: #990C18;
+}

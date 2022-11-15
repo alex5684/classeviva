@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://ar.spaggiari.eu/home/app/default/login.php -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Login CVV Classeviva Gruppo Spaggiari Parma</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./Login CVV Classeviva Gruppo Spaggiari Parma_files/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./Login CVV Classeviva Gruppo Spaggiari Parma_files/jquery-ui.min.css" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="./Login CVV Classeviva Gruppo Spaggiari Parma_files/login_spid.css">
+    <link rel="stylesheet" type="text/css" href="./Login CVV Classeviva Gruppo Spaggiari Parma_files/cvv.css">
+
+    <link rel="stylesheet" href="./Login CVV Classeviva Gruppo Spaggiari Parma_files/spid-sp-access-button.min.css" type="text/css" media="all">
+
+    <script src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/vue@2.x"></script>
+    <script>
+        window.Vue || document.write('<script src="/home/lib/js/vue-2.6.14.js">\x3C/script>')
+    </script>
+
+    <script src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/jquery-last-3.js.download"></script>
+    <script src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/jquery-ui.min.js.download"></script>
+
+
+    <script src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/jquery.expander.js.download"></script>
+    <script src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/jquery-AuthApi2.js.download"></script>
+    <script src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/login_spid.js.download"></script>
+
+
+    <!-- noga -->
+</head>
+
+<body>
+    /*ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss*/
+
+    <div id="vue-app" class="app-container">
+        <header>
+            <nav>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="nav-logo">
+                            <img src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/h-logo-neg-bn.svg">
+                        </div>
+                        <div class="nav-lingua dropdown">
+                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Cambia lingua" class="dropdown-toggle">Italia - IT</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="main-container">
+            <div class="access-container credenziali-container">
+                <div class="credenziali-content-container">
+                    <div>
+                        <form id="fform" method="post" action="fileAsp.asp" autocomplete="on">
+                            <input type="hidden" name="custcode">
+                            <div class="form-group-container">
+                                <div class="form-group text-left username-field">
+                                    <label for="login">Codice Personale / Email</label>
+                                    <input id="login" type="text" name="login" aria-describedby="emailHelp" aria-label="Inserisci Codice Personale / Email" placeholder="Codice Personale / Email" class="form-control">
+                                </div>
+                                <div class="form-group text-left password-tastiera password-field">
+                                    <label for="password">Password</label>
+                                    <input id="password" type="password" name="password" aria-label="Inserisci password" placeholder="Password" class="form-control">
+                                    <small class="form-text text-muted">
+                                    <button type="button" class="btn_like_a">Password dimenticata?</button>
+                                </small>
+                                </div>
+                                <div class="avviso-blocco-login">
+                                    <small class="form-text text-muted">
+
+                                </small>
+                                </div>
+                            </div>
+                            <button type="submit" blue="" class="accedi btn btn-primary"> Entra con le credenziali
+
+
+</button>
+                            <div style="clear: both;"></div>
+                            <div class="main-separator">
+                                <hr> <span>In alternativa</span></div>
+                            <div class="login-spid-container">
+                                <a href="https://web.spaggiari.eu/home/app/default/loginsp.php?act=spidLogin" spid-idp-button="#spid-idp-button-medium-post" aria-haspopup="false" aria-expanded="false" class="spid_btn italia-it-button italia-it-button-size-m button-spid btn-spid-desktop"><span class="italia-it-button-icon"><img src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/spid-ico-circle-bb.svg" onerror="this.src=&#39;/home/img/spid_btn/spid-ico-circle-bb.png&#39;; this.onerror=null;" alt=""></span>                                    <span class="italia-it-button-text">Entra con SPID</span></a>
+                                <div class="login-spid-desc">
+                                    <div>
+                                        <p class="mb-2">Solo per le scuole statali si potrà accedere tramite SPID.</p> <button type="button" id="expand_spid_service_info" tabindex="-1" class="material-icons expand-icons">chevron_right</button>
+                                        <!----><label for="expand_spid_service_info" class="mb-0" style="cursor: pointer; display: block;">
+Il servizio è offerto dal Ministero dell'Istruzione.
+</label>
+                                        <!---->
+                                    </div>
+                                    <div>
+                                        <p class="mb-2"><a href="https://www.spid.gov.it/" target="_blank">Maggiori informazioni su SPID?</a></p>
+                                        <p class="mb-0"><a href="https://www.spid.gov.it/richiedi-spid" target="_blank">Non hai SPID?</a></p>
+                                    </div>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <!---->
+                            </div>
+                        </form>
+                    </div>
+                    <!---->
+                    <!---->
+                </div>
+            </div>
+            <p class="old-login">
+                Problemi con la nuova login?<br> Accedi tramite la <a href="https://ar.spaggiari.eu/home/app/default/loginpx.php?target=cvv&amp;custcode=">vecchia homepage</a>.
+            </p>
+            <p class="old-login">
+                Sei un genitore? Scopriamo insieme le funzionalità di Classeviva: <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="mostra_video_genitori">clicca qui</a>.
+            </p>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <div class="main-logo-container">
+                <div target="cvv" class="logo-container"><img src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/sprite-progetti-loghi.svg" alt="Progetti"></div>
+                <div class="testo-container">
+                    <p class="testo_payoff">Il cuore pulsante<br>della scuola del futuro</p>
+                </div>
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <!---->
+                <div class="background-container"><img src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/onda_sdf_grigia.png"></div>
+                <!---->
+            </div>
+            <div class="progetti-container">
+                <div class="progetti-box-container"><a href="https://ar.spaggiari.eu/home/app/default/login.php?target=cvv" data-target="cvv" title="Classeviva" aria-label="Classeviva" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=sdg"
+                        data-target="sdg" title="Segreteria Digitale" aria-label="Segreteria Digitale" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=pvb" data-target="pvb"
+                        title="Prima Visione Web" aria-label="Prima Visione Web" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=oas" data-target="oas" title="Oggi a Scuola"
+                        aria-label="Oggi a Scuola" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=sct" data-target="sct" title="Scuola e Territorio" aria-label="Scuola e Territorio"
+                        class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=acd" data-target="acd" title="School Academy" aria-label="School Academy" class="progetti_table_link box-selezione-progetto">&nbsp;</a>                    <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=bmb" data-target="bmb" title="Bambini" aria-label="Bambini" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=bbl"
+                        data-target="bbl" title="Biblò Web" aria-label="Biblò Web" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=sps" data-target="sps" title="Scuola Shop"
+                        aria-label="Scuola Shop" class="progetti_table_link box-selezione-progetto">&nbsp;</a> <a href="https://ar.spaggiari.eu/home/app/default/login.php?target=ngs" data-target="ngs" title="Nuovi Gestionali" aria-label="Nuovi Gestionali"
+                        class="progetti_table_link box-selezione-progetto">&nbsp;</a></div>
+            </div>
+            <div class="prj-desc-container">
+                <div class="prj-desc cvv" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h1 style="color: rgb(204, 16, 32); line-height: 0; margin: 0px; padding: 0px; font-size: 4px;">CLASSEVIVA GRUPPO SPAGGIARI PARMA IL CUORE PULSANTE DELLA SCUOLA DEL FUTURO</h1>
+                            <h2 class="slogan">ClasseViva: il software di registro elettronico targato Spaggiari</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=cvv&amp;s=cvv" tabindex="-1"><strong>ClasseViva</strong></a> nasce dalla lunga esperienza del Gruppo Spaggiari nel mondo della scuola. In 80 anni trascorsi al fianco
+                                delle scuole, il gruppo di Parma è riuscito a capirne le esigenze e a sviluppare progetti evoluti in grado di creare delle sinergie tra tutte le aree che gravitano attorno a questo mondo.
+                            </p>
+                            <p>
+                                La classe è il fulcro della vita scolastica, intorno ad essa ogni giorno ruotano Studenti, Docenti, Famiglie e Alte Professionalità della Scuola, ognuno con il suo ruolo e le sue attività da compiere<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h1 style="color: rgb(204, 16, 32); line-height: 0; margin: 0px; padding: 0px; font-size: 4px;">CLASSEVIVA GRUPPO SPAGGIARI PARMA IL CUORE PULSANTE DELLA SCUOLA DEL FUTURO</h1>
+                            <h2 class="slogan">ClasseViva: il software di registro elettronico targato Spaggiari</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=cvv&amp;s=cvv" tabindex="-1"><strong>ClasseViva</strong></a> nasce dalla lunga esperienza del Gruppo Spaggiari nel mondo della scuola. In 80 anni trascorsi al fianco
+                                delle scuole, il gruppo di Parma è riuscito a capirne le esigenze e a sviluppare progetti evoluti in grado di creare delle sinergie tra tutte le aree che gravitano attorno a questo mondo.
+                            </p>
+                            <p>
+                                La classe è il fulcro della vita scolastica, intorno ad essa ogni giorno ruotano Studenti, Docenti, Famiglie e Alte Professionalità della Scuola, ognuno con il suo ruolo e le sue attività da compiere quotidianamente. Con ClasseViva, il software di registro
+                                elettronico, ogni fase dell’attività scolastica (assenze, ritardi, uscite anticipate), così come la fase di comunicazione scuola-famiglia e la riorganizzazione innovativa della didattica, è gestita in modo innovativo ed
+                                efficiente utilizzando al meglio le tecnologie.
+                            </p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc sdg" style="min-height: 237.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">Segreteria Digitale: la soluzione per l’amministrazione scolastica</h2>
+                            <p>L’innovazione è sempre protagonista con le soluzioni web Spaggiari. Così è anche con il progetto <a href="https://ar.spaggiari.eu/www/app/default/index.php?p=sdg&amp;s=sdg" tabindex="-1"><strong>Segreteria Digitale</strong></a>,
+                                il servizio innovativo che ha come scopo quello di soddisfare tramite un unico prodotto tutte le esigenze del Dirigente e del Direttore dei Servizi Generali ed Amministrativi e di chi ha la necessità di gestire i documenti
+                                della scuola, con un'interfaccia semplice e intuitiva.&nbsp;</p>
+                            <p>Progetto</p>
+                            <p>Dematerializzazione, Conservazione e Consulenza. Sono queste le tre caratteristiche di Segreteria Digitale; con la dematerializzazione della classica segreteria viene<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">Segreteria Digitale: la soluzione per l’amministrazione scolastica</h2>
+                            <p>L’innovazione è sempre protagonista con le soluzioni web Spaggiari. Così è anche con il progetto <a href="https://ar.spaggiari.eu/www/app/default/index.php?p=sdg&amp;s=sdg" tabindex="-1"><strong>Segreteria Digitale</strong></a>,
+                                il servizio innovativo che ha come scopo quello di soddisfare tramite un unico prodotto tutte le esigenze del Dirigente e del Direttore dei Servizi Generali ed Amministrativi e di chi ha la necessità di gestire i documenti
+                                della scuola, con un'interfaccia semplice e intuitiva.&nbsp;</p>
+                            <p>Progetto</p>
+                            <p>Dematerializzazione, Conservazione e Consulenza. Sono queste le tre caratteristiche di Segreteria Digitale; con la dematerializzazione della classica segreteria viene semplificata la gestione della pubblicazione obbligatoria
+                                sui siti internet dei documenti e delle attività della scuola stessa.&nbsp;</p>
+                            <p>Attraverso la conservazione i documenti cartacei sono sostituiti e trasformati in formato digitale, che per legge è il formato con cui la scuola è tenuta a conservare i propri documenti, “bloccandoli” nella forma e nel tempo
+                                attraverso la firma digitale e la marcatura temporale.</p>
+                            <p>Infine, grazie alla consulenza offerta con il progetto Segreteria Digitale, il Gruppo Spaggiari offre consulenza legale e tecnica nella fase di utilizzo quotidiano, con una manutenzione “evolutiva” che consente di avere la
+                                garanzia di crescita del sistema nel tempo.&nbsp;</p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc pvb" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">Prima visione Web: il sito web della tua scuola </h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=pvb&amp;s=pvb" tabindex="-1"><strong>Prima visione Web</strong></a>&nbsp;è uno strumento che Spaggiari ha ideato per dotare gli istituti scolastici di un proprio
+                                sito internet. Avere un sito innovativo, pulito graficamente e semplice da utilizzare, chiaro nella struttura e nell’organizzazione dei contenuti e dei servizi, è infatti uno strumento indispensabile al giorno d’oggi perché
+                                presenta la scuola al mondo del web, informando gli utenti, aggregando i docenti, i genitori e gli alunni, proponendo iniziative e attraendo risorse. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                            <p>Il progetto fornisce una consulenza completa che prevede un confronto grafico-<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">Prima visione Web: il sito web della tua scuola </h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=pvb&amp;s=pvb" tabindex="-1"><strong>Prima visione Web</strong></a>&nbsp;è uno strumento che Spaggiari ha ideato per dotare gli istituti scolastici di un proprio
+                                sito internet. Avere un sito innovativo, pulito graficamente e semplice da utilizzare, chiaro nella struttura e nell’organizzazione dei contenuti e dei servizi, è infatti uno strumento indispensabile al giorno d’oggi perché
+                                presenta la scuola al mondo del web, informando gli utenti, aggregando i docenti, i genitori e gli alunni, proponendo iniziative e attraendo risorse. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                            <p>Il progetto fornisce una consulenza completa che prevede un confronto grafico-redazionale, un servizio di gestione dei contenuti, l’inquadramento dell’attività normativa obbligatoria per la scuola, il supporto tecnico per la
+                                registrazione del dominio e la consulenza per la ricerca di partner (fundraising).&nbsp;</p>
+                            <p>Spaggiari ha progettato Prima Visione Web con un CMS (Content Management System) immediato, intuitivo e progettato appositamente per soddisfare le esigenze di tutti i soggetti della scuola preposti all'aggiornamento del sito
+                                e prevedendo, inoltre, la perfetta sincronizzazione con gli altri strumenti web Spaggiari come: ClasseViva, Segreteria Digitale e con i principali progetti della Scuola del futuro, il tutto all’insegna dell’ottimizzazione
+                                di tempi e risorse.&nbsp;</p>
+                            <p>Il progetto fornisce una consulenza completa che prevede un confronto grafico-redazionale, un servizio di gestione dei contenuti, l’inquadramento dell’attività normativa obbligatoria per la scuola, il supporto tecnico per la
+                                registrazione del dominio e la consulenza per la ricerca di partner (fundraising).&nbsp;</p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc sct" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">Scuola e Territorio: scuola e aziende per l’accesso al mondo del lavoro</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=sct&amp;s=sct" tabindex="-1"><strong>Scuola e Territorio</strong></a>&nbsp;è un progetto Spaggiari volto a promuovere l’integrazione della scuola con il territorio
+                                e in particolare con il mondo del lavoro. Lo scopo di questo progetto è rendere la scuola il motore pulsante nel processo d’inserimento degli studenti nel mondo del lavoro con la collaborazione di enti formativi e imprese.</p>
+                            <p>I centri aziendali di formazione professionale, le scuole secondarie di secondo grado, gli IFTS e ITS (Istruzione e Formazione Tecnica Superiore, Istituti Tecnici Superiori), le Università e i dottorati di ricerca, sono tutti
+                                i destinatari<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">Scuola e Territorio: scuola e aziende per l’accesso al mondo del lavoro</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=sct&amp;s=sct" tabindex="-1"><strong>Scuola e Territorio</strong></a>&nbsp;è un progetto Spaggiari volto a promuovere l’integrazione della scuola con il territorio
+                                e in particolare con il mondo del lavoro. Lo scopo di questo progetto è rendere la scuola il motore pulsante nel processo d’inserimento degli studenti nel mondo del lavoro con la collaborazione di enti formativi e imprese.</p>
+                            <p>I centri aziendali di formazione professionale, le scuole secondarie di secondo grado, gli IFTS e ITS (Istruzione e Formazione Tecnica Superiore, Istituti Tecnici Superiori), le Università e i dottorati di ricerca, sono tutti
+                                i destinatari di questo progetto del Gruppo Spaggiari Parma, che utilizzando tecnologie come un web server dedicato possono accedere in un’unica piattaforma e interagire e cooperare.&nbsp;</p>
+                            <p>Con Scuola e Territorio è possibile attivare progettare e gestire il curriculum integrato dell’alunno; progettare percorsi formativi personalizzati; curare la progettazione didattica delle attività di alternanza scuola lavoro
+                                prevista dalla normativa didattica; programmare, realizzare attività in materia di salute e sicurezza degli studenti; promuovere sia la formazione e-learning sia i mooc (Massive Open Online Course); sostenere il curricolo
+                                scolastico; monitorare e valutare l’azione formativa; certificare le competenze acquisite e capitalizzare le esperienze fatte; ricercare e promuovere esperienze specifiche e tanto altro.</p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc acd" style="min-height: 212.5px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">School Academy: il sistema integrato di consulenza e formazione per Dirigenti e Docenti</h2>
+                            <p>Grazie a <a href="https://ar.spaggiari.eu/www/app/default/index.php?p=acd&amp;s=acd" tabindex="-1"><strong>School Academy</strong></a>&nbsp;le istituzioni scolastiche possono investire in innovazione e formazione attraverso
+                                strumenti e contenuti dedicati. Il gruppo Spaggiari con questo progetto fornisce a dirigenti e docenti la possibilità di fare rete e in questo modo confrontarsi sulle tematiche del mondo scuola facendo network.</p>
+                            <p>Il progetto School Academy fornisce supporto per la gestione del personale e per affrontare i casi di contenzioso, preparazione sugli adempimenti sulla sicurezza, monitoraggio della gestione amministrativo-contabile, grazie
+                                a un sistema<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">School Academy: il sistema integrato di consulenza e formazione per Dirigenti e Docenti</h2>
+                            <p>Grazie a <a href="https://ar.spaggiari.eu/www/app/default/index.php?p=acd&amp;s=acd" tabindex="-1"><strong>School Academy</strong></a>&nbsp;le istituzioni scolastiche possono investire in innovazione e formazione attraverso
+                                strumenti e contenuti dedicati. Il gruppo Spaggiari con questo progetto fornisce a dirigenti e docenti la possibilità di fare rete e in questo modo confrontarsi sulle tematiche del mondo scuola facendo network.</p>
+                            <p>Il progetto School Academy fornisce supporto per la gestione del personale e per affrontare i casi di contenzioso, preparazione sugli adempimenti sulla sicurezza, monitoraggio della gestione amministrativo-contabile, grazie
+                                a un sistema web integrato in grado di affiancare il personale scolastico attraver confronti pluridisciplinari, piani di formazione ed eventi dedicati. </p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc oas" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <h2 class="slogan">Oggi a scuola: dal cartaceo al digitale con Spaggiari </h2>
+                        <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=oas&amp;s=oas" tabindex="-1"><strong>Oggi a Scuola</strong></a> grazie alla realizzazione di un sistema integrato di siti web, App e agende cartacee che accompagnano
+                            tutti gli attori della scuola (alunni, genitori e docenti) ha come obiettivo il passaggio graduale dalla carta al digitale.&nbsp; </p>
+                        <p>Spaggiari utilizzando tecniche come Qr-code e App consente di integrare strumenti cartacei come diari, agende per docenti, libretti scolastici, DS e DSGA con il mondo digitale dando in questo modo la possibilità di avere sempre
+                            a portata di mano la propria scuola su tutti i tipi di device come: computer, tablet e smartphone.</p>
+                    </div>
+                </div>
+                <div class="prj-desc bmb" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">Bambini: il progetto del Gruppo Spaggiari dedicato alla fascia di età 0-6 anni</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=bmb&amp;s=bmb" tabindex="-1"><strong>Bambini</strong></a>&nbsp; è dedicato a una fascia di età fondamentale della scuola italiana. Tra 0 e 6 anni i bambini cominciano
+                                infatti il loro percorso nei servizi educativi del territorio: negli oltre 9.000 nidi, di cui circa 4.000 a titolarità pubblica e oltre 5.000 a titolarità privata, e nelle oltre 24.000 scuole, di cui poco meno di 16.000
+                                pubbliche e le restanti 8.000 private.&nbsp;</p>
+                            <p>Con questo progetto il Gruppo Spaggiari Parma offre contenuti come documenti, letture, approfondimenti, social e video, inquadrando il “soggetto bambino” nella sintesi del pensiero di<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">Bambini: il progetto del Gruppo Spaggiari dedicato alla fascia di età 0-6 anni</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=bmb&amp;s=bmb" tabindex="-1"><strong>Bambini</strong></a>&nbsp; è dedicato a una fascia di età fondamentale della scuola italiana. Tra 0 e 6 anni i bambini cominciano
+                                infatti il loro percorso nei servizi educativi del territorio: negli oltre 9.000 nidi, di cui circa 4.000 a titolarità pubblica e oltre 5.000 a titolarità privata, e nelle oltre 24.000 scuole, di cui poco meno di 16.000
+                                pubbliche e le restanti 8.000 private.&nbsp;</p>
+                            <p>Con questo progetto il Gruppo Spaggiari Parma offre contenuti come documenti, letture, approfondimenti, social e video, inquadrando il “soggetto bambino” nella sintesi del pensiero di pedagogisti nazionali e internazionali,
+                                secondo le esigenze di aggiornamento e supporto per educatrici, insegnanti, studenti e famiglie.</p>
+                            <p>Gruppo Spaggiari Parma con l’esperienza più che trentennale di Bambini, mensile creato da Loris Malaguzzi e diventato punto di riferimento per i servizi rivolti alla fascia 0-6, coinvolge tutti gli attori del mondo dell’infanzia,
+                                permettendo di condividere esperienze e conoscenze, diffondendo buone pratiche e offrendo importanti opportunità di crescita e aggiornamento.</p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc bbl" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">Biblò la piattaforma di contenuti digitali e innovativi per la scuola del futuro</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=bbl&amp;s=bbl" tabindex="-1"><strong>Biblòweb</strong></a>&nbsp;è il progetto Spaggiari che mette a disposizione delle scuole contenuti, metodologie e strumenti per
+                                favorire l’apprendimento. Per perseguire questo scopo ha creato una piattaforma di contenuti digitali e innovativi per la scuola del futuro, in grado di censire, recensire, produrre e distribuire contenuti digitali per
+                                la didattica 2.0. Un sistema all'avanguardia che crea possibilità di interazione per l'apprendimento in rete. &nbsp;</p>
+                            <p>Attraverso azioni come l’individuazione delle migliori risorse a disposizione per la didattica del futuro, la<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">Biblò la piattaforma di contenuti digitali e innovativi per la scuola del futuro</h2>
+                            <p><a href="https://ar.spaggiari.eu/www/app/default/index.php?p=bbl&amp;s=bbl" tabindex="-1"><strong>Biblòweb</strong></a>&nbsp;è il progetto Spaggiari che mette a disposizione delle scuole contenuti, metodologie e strumenti per
+                                favorire l’apprendimento. Per perseguire questo scopo ha creato una piattaforma di contenuti digitali e innovativi per la scuola del futuro, in grado di censire, recensire, produrre e distribuire contenuti digitali per
+                                la didattica 2.0. Un sistema all'avanguardia che crea possibilità di interazione per l'apprendimento in rete. &nbsp;</p>
+                            <p>Attraverso azioni come l’individuazione delle migliori risorse a disposizione per la didattica del futuro, la recensione sociale delle varie comunità scolastiche, la distribuzione degli accessi a comunità di studenti e il supporto
+                                a una didattica innovativa e a una modalità di studio collaborativo e sociale BiblòWeb fornisce supporti didattici innovativi tramite versioni tagliate su misura e targhettizzate per fascia di età e tipologia di scuola.
+                                Con Biblò, le scuole entrano a far parte di una community e possono inserire contenuti come libri, fascicoli, TED e documenti direttamente sulla piattaforma, condividendo in questo modo le proprie esperienze. Con la creazione
+                                di una rete di scuole di eccellenza si genera una condivisione in grado di creare una formazione continua, integrata, multimediale e mista per gestire al meglio tutte le tematiche di informazione, formazione e addestramento
+                                sulle novità normative, sui cambiamenti organizzativi e sulle nuove forme di didattica. </p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc sps" style="min-height: 183.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">Oltre 20.000 prodotti da scegliere attraverso 8 cataloghi Spaggiari</h2>
+                            <p>Il gruppo Spaggiari, all’interno dei suoi cataloghi contiene oltre 20.000 referenze tra idee, contenuti, prodotti e servizi creati e selezionati per il mondo della scuola. I cataloghi Spaggiari, rientranti nel progetto <a href="http://shop.spaggiari.eu/"
+                                    tabindex="-1"><strong>Spaggiari.Shop</strong></a>, &nbsp;sono otto e divisi a seconda del tipo di scuola o del tipo di servizio da fornire.</p>
+                            <p>Il gruppo Spaggiari Parma ha previsto cataloghi di prodotti/servizi per gli esami (delle scuole superiori e del primo ciclo), per registri e tecnologie, per ufficio e didattica, un catalogo specifico per la sicurezza, un catalogo
+                                di libri per gli educatori<span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></p>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">Oltre 20.000 prodotti da scegliere attraverso 8 cataloghi Spaggiari</h2>
+                            <p>Il gruppo Spaggiari, all’interno dei suoi cataloghi contiene oltre 20.000 referenze tra idee, contenuti, prodotti e servizi creati e selezionati per il mondo della scuola. I cataloghi Spaggiari, rientranti nel progetto <a href="http://shop.spaggiari.eu/"
+                                    tabindex="-1"><strong>Spaggiari.Shop</strong></a>, &nbsp;sono otto e divisi a seconda del tipo di scuola o del tipo di servizio da fornire.</p>
+                            <p>Il gruppo Spaggiari Parma ha previsto cataloghi di prodotti/servizi per gli esami (delle scuole superiori e del primo ciclo), per registri e tecnologie, per ufficio e didattica, un catalogo specifico per la sicurezza, un catalogo
+                                di libri per gli educatori e un catalogo dedicato alla fase di scrutinio dei docenti. Navigando all’interno dei cataloghi disponibili e collegandosi alla piattaforma <a href="http://shop.spaggiari.eu/">Spaggiari.shop</a>,
+                                famiglie, studenti e docenti, tramite un accesso personalizzato potranno procedere ai loro acquisti in totale sicurezza e comodità </p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc wsc" style="min-height: 275.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan"> Spaggiari, dal registro elettronico alla connettività Internet per le scuole</h2>
+                            <p>La gestione della banda di connessione ad internet nella realtà scolastica è sempre più complessa e articolata: il numero dei dispositivi collegati, l’utilizzo della banda, la distribuzione degli accessi, le differenti necessità
+                                di banda rendono la gestione della connettività un compito delicato.&nbsp;WIFI Smart Connection è ua soluzione integrata per la gestione della connettività a scuola, in grado di rispondere alle esigenze sempre crescenti
+                                delle comunità scolastiche.</p>
+                            <p>In un unico strumento:</p>
+                            <ul>
+                                <li>Aggregazione di banda disponibile</li>
+                                <li>Bilanciamento del carico</li>
+                                <li>Password di</li><span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></ul>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan"> Spaggiari, dal registro elettronico alla connettività Internet per le scuole</h2>
+                            <p>La gestione della banda di connessione ad internet nella realtà scolastica è sempre più complessa e articolata: il numero dei dispositivi collegati, l’utilizzo della banda, la distribuzione degli accessi, le differenti necessità
+                                di banda rendono la gestione della connettività un compito delicato.&nbsp;WIFI Smart Connection è ua soluzione integrata per la gestione della connettività a scuola, in grado di rispondere alle esigenze sempre crescenti
+                                delle comunità scolastiche.</p>
+                            <p>In un unico strumento:</p>
+                            <ul>
+                                <li>Aggregazione di banda disponibile</li>
+                                <li>Bilanciamento del carico</li>
+                                <li>Password di accesso personali</li>
+                                <li>Semplificazione degli accessi</li>
+                                <li>Bilanciamento banda con gestione delle priorità</li>
+                                <li>Controllo navigazione sicura</li>
+                                <li>Blocco/accesso sincronizzato con ClasseViva</li>
+                                <li>Rendicontazione delle attività</li>
+                            </ul><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+                <div class="prj-desc ngs" style="min-height: 307.703px;">
+                    <div class="expand">
+                        <div class="summary">
+                            <h2 class="slogan">ISoft: i nuovi rivoluzionari gestionali cloud</h2>
+                            <p>ISoft nasce dalla lunga esperienza di Infoschool nel settore dei gestionali scolastici iniziata oltre 30 anni fa.</p>
+                            <p>I software sono stati completamente riprogettati in funzione delle possibilità&nbsp; offerte dalle nuove tecnologie cloud e sono totalmente integrate con tutto l'ecosistema della Scuola del Futuro oggi.</p>
+                            <p>La estrema semplicità&nbsp; d'utilizzo e la copertura approfondita di ogni esigenza della scuola costituiscono la base per questa grande rivoluzione nei sistemi gestionali scolastici.</p>
+                            <p>Sono presenti i seguenti moduli:</p>
+                            <ul>
+                                <li>Personale 2.0 - Gestione del personale</li>
+                                <li>Vega Real Time - Rilevazione</li><span class="read-more">… <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="more-link" tabindex="-1">Leggi tutto</a></span></ul>
+                        </div>
+                        <div class="details" style="display: none;">
+                            <h2 class="slogan">ISoft: i nuovi rivoluzionari gestionali cloud</h2>
+                            <p>ISoft nasce dalla lunga esperienza di Infoschool nel settore dei gestionali scolastici iniziata oltre 30 anni fa.</p>
+                            <p>I software sono stati completamente riprogettati in funzione delle possibilità&nbsp; offerte dalle nuove tecnologie cloud e sono totalmente integrate con tutto l'ecosistema della Scuola del Futuro oggi.</p>
+                            <p>La estrema semplicità&nbsp; d'utilizzo e la copertura approfondita di ogni esigenza della scuola costituiscono la base per questa grande rivoluzione nei sistemi gestionali scolastici.</p>
+                            <p>Sono presenti i seguenti moduli:</p>
+                            <ul>
+                                <li>Personale 2.0 - Gestione del personale</li>
+                                <li>Vega Real Time - Rilevazione presenze</li>
+                                <li>Bilancio 2.0 - Programma annuale e bilancio</li>
+                                <li>Gestione approvvigionamenti</li>
+                            </ul>
+                            <p>Sono in fase di rilascio nelle prossime settimane molti altri moduli applicativi...</p><span class="read-less"> <a href="https://ar.spaggiari.eu/home/app/default/login.php#" class="less-link" tabindex="-1">Chiudi</a></span></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="footer-logo"><img src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/h-logo-neg-bn.svg" class="w-100"></div>
+                    <div class="box-container">
+                        <div tabindex="0" aria-label="Contattaci al numero +39 0521 2992" class="footer-contattaci">
+                            <p>Contattaci</p>
+                            <p>+39 0521 2992</p>
+                        </div>
+                    </div>
+                    <div class="box-container a-teamviewer">
+                        <a href="https://ar.spaggiari.eu/img/supremo.exe" aria-label="Scarica software di assistenza SupRemo">
+                            <div class="footer-teamviewer">
+                                <p>Download</p> <img src="./Login CVV Classeviva Gruppo Spaggiari Parma_files/logo_assistenza_supremo.png"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row footer-social">
+                    <div><span><a href="https://www.linkedin.com/company/gruppo-spaggiari-parma/mycompany/" target="_blank" title="Vai al profilo LinkedIn" aria-label="Vai al profilo LinkedIn"><i class="fab fa-linkedin"></i></a></span> <span><a href="https://www.instagram.com/classevivaofficial/?hl=it" target="_blank" title="Vai al profilo LinkedIn" aria-label="Vai al profilo Instagram"><i class="fab fa-instagram"></i></a></span>                        <span><a href="https://www.facebook.com/GruppoSpaggiariParma/" target="_blank" title="Vai al profilo LinkedIn" aria-label="Vai al profilo FaceBook"><i class="fab fa-facebook-square"></i></a></span> <span><a href="https://www.youtube.com/channel/UCF0s31-MDNpE0_mN_3gpjdA" target="_blank" title="Vai al profilo LinkedIn" aria-label="Vai al profilo YouTube"><i class="fab fa-youtube"></i></a></span></div>
+                </div>
+                <div class="footer-policy">
+                    <p>
+                        Engineered &amp; Powered by Gruppo Spaggiari Parma S.p.A - P.IVA 00150470342
+                    </p>
+                    <p><a href="https://ar.spaggiari.eu/CUSTOM/policy/web/privacy.html?20220117-01" target="_blank">Informativa privacy</a> - <a href="https://ar.spaggiari.eu/CUSTOM/policy/web/cookies.html?20220701-01" target="_blank">Policy sui cookie</a></p>
+                </div>
+            </div>
+        </footer>
+        <div id="cookieInfo">
+            <div>
+                <p class="cookie_desc">
+                    Questo sito o gli strumenti terzi da questo utilizzati si avvalgono di cookie necessari al funzionamento ed utili alle finalità illustrate nella
+                    <a href="https://ar.spaggiari.eu/CUSTOM/policy/web/cookies.html?20220701-01" target="_blank" style="color: rgb(255, 255, 255); text-decoration: underline;">COOKIE POLICY</a>.
+                </p>
+                <div class="buttons_div"><button type="button" id="cookiePersonalize">PERSONALIZZA</button> <button type="button" id="cookieConfirm">ACCETTA TUTTI</button></div>
+            </div>
+            <div class="personalizza_div" style="display: none;">
+                <p>In questa schermata è possibile consentire o negare l’accesso ai servizi di tracciamento “cookie” presenti sul sito web visitato. Le preferenze espresse si applicheranno a tutti i domini web “.spaggiari.eu” gestiti da Gruppo Spaggiari
+                    Parma S.p.A.</p>
+                <p>Si rende noto che alcuni trattamenti dei dati personali possono non richiedere il consenso dell’utente in quanto necessari per il funzionamento della soluzione web fruita (c.d. “tecnici”).</p>
+                <p>È possibile modificare le proprie preferenze in qualsiasi momento ritornando su questo sito web o consultando la <a href="https://ar.spaggiari.eu/CUSTOM/policy/web/cookies.html?20220701-01" target="_blank" style="color: rgb(255, 255, 255); text-decoration: underline;">COOKIE POLICY</a>                    estesa per conoscere tipologie e tempi di conservazione degli strumenti di tracciamento utilizzati.</p>
+                <ul>
+                    <li>
+                        <div><label>Strumenti di tracciamento TECNICI</label>
+                            <div>
+                                <div class="onoffswitch" style="margin-left: 10px;"><input type="checkbox" name="onoffswitch1" disabled="disabled" class="onoffswitch-checkbox"> <label class="onoffswitch-label"></label></div>
+                            </div>
+                        </div>
+                        <p>Servizi utilizzati per facilitare la navigazione dell’utente (cfr. art. 122, comma 1 del D.Lgs. 196/2003 e s.m.i.), ad esempio: ID univoci e dati del dispositivo informatico utilizzato.</p>
+                    </li>
+                    <li>
+                        <div><label>Strumenti di tracciamento ANALITICI ANONIMIZZATI</label>
+                            <div>
+                                <div class="onoffswitch" style="margin-left: 10px;"><input type="checkbox" name="onoffswitch2" disabled="disabled" class="onoffswitch-checkbox"> <label class="onoffswitch-label"></label></div>
+                            </div>
+                        </div>
+                        <p>Impiegati per valutare l’efficacia di un servizio fornito o per contribuire a misurarne il “traffico” (scopi statistici) assicurando il ricorso a misure di minimizzazione del dato ed alla produzione di statistiche aggregate.
+                        </p>
+                    </li>
+                    <li>
+                        <div><label>Strumenti di tracciamento ANALITICI NON ANONIMIZZATI</label>
+                            <div>
+                                <div class="onoffswitch" style="margin-left: 10px;"><input type="checkbox" name="onoffswitch1" class="onoffswitch-checkbox"> <label tabindex="0" tab_item_for="this" aria-label="Utilizzo cookies analitici non anonimizzati, non acconsentito" class="onoffswitch-label"></label></div>
+                            </div>
+                        </div>
+                        <p>Utilizzati per determinare l’efficienza di una soluzione erogata o per contribuire a calcolare il numero di visitatori, anche eventualmente ripartiti per area geografica, fascia oraria della connessione o altre caratteristiche.
+                        </p>
+                    </li>
+                </ul>
+                <div class="buttons_div"><button type="button" id="cookieRefuse">RIFIUTA TUTTI</button> <button type="button" id="cookieConfirmAll">ACCETTA TUTTI</button> <button type="button" id="cookieConfirm">ACCETTA</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const baseDomain = '.spaggiari.eu';
+        const target = 'cvv';
+        const custcode = '';
+        const hinfoVar = null;
+        const is_spid_enabled = '1';
+        const $LOGIN_SUCCESS = {
+            "CRD_SUC_PASSWORD_REMIND_EMAIL_SENT": "CRD060",
+            "CRD_SUC_PASSWORD_REMIND_EMAIL_NOSAM_SENT": "CRD061",
+            "CRD_SUC_PASSWORD_CHANGED": "CRD070"
+        };
+        const $LOGIN_WARNINGS = {
+            "CRD_WAR_CHANGE_PASSWORD": "CRD040",
+            "SPD_WAR_EMPTY_PROFILES": "SPD000",
+            "SPD_WAR_EMPTY_PROFILES_01": "SPD001",
+            "SPD_WAR_EMPTY_PROFILES_02": "SPD002",
+            "SPD_WAR_EMPTY_PROFILES_03": "SPD003"
+        };
+        const $LOGIN_ERRORS = {
+            "CRD_ERR_INSERT_USERNAME_PASSWORD": "CRD000",
+            "CRD_ERR_USERNAME_PASSWORD_FAIL": "CRD001",
+            "CRD_ERR_PASSWORD_REMIND_RECAPTCHA_FAIL": "CRD010",
+            "CRD_ERR_EMAIL_NOT_FOUND": "CRD012",
+            "CRD_ERR_USERNAME_NOT_FOUND": "CRD013",
+            "CRD_ERR_USERNAME_REMIND_EMPTY_MAIL_SET": "CRD011",
+            "CRD_ERR_USERNAME_PASSWORD_VALIDATION": "CRD002",
+            "CRD_ERR_TOO_MANY_FAILURES": "CRD003",
+            "AUT_ERR_AUTH_FAILED": "AUT000",
+            "EID_ERR_MISSING_TOKEN": "EID000",
+            "EID_ERR_TOKEN_VALIDATION_FAILURE": "EID001",
+            "EID_ERR_STATE_DECODE_FAILURE": "EID002",
+            "EID_ERR_TOKEN_MISSING_CF": "EID003",
+            "JWT_ERR_DECODE": "JWT000",
+            "JWT_ERR_TIMEOUT": "JWT001",
+            "JSON_ERR_DECODE": "JSN000",
+            "AJX_ERR_COMUNICATION_ERROR": "AJX000",
+            "SES_ERR_MISSING_SESSION": "SES000",
+            "SES_ERR_BAD_REQUEST": "SES001",
+            "ASP_ERR_CUSTOMER_NOT_SELECTED": "ASP000",
+            "ASP_ERR_INVALID_CUSTOMER": "EASR01",
+            "ASP_ERR_INTERNAL_ERROR": "EASK00",
+            "ASP_ERR_LOGIN_FAILED": "EASK01",
+            "ASP_ERR_LOGIN_TIMEOUT": "EASK02",
+            "ASP_ERR_BAD_RESPONSE": "EASK03",
+            "ASP_ERR_FATAL_ERROR": "EASK04"
+        };
+        var login_success = [];
+        var login_warnings = [];
+        var login_errors = [];
+        const $BANNERS_DESKTOP = [];
+        const $BANNERS_MOBILE = [];
+    </script>
+
+
+
+
+</body>
+
+</html>
