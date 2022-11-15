@@ -16,7 +16,7 @@
 
             dim fs,f
             set fs=Server.CreateObject("Scripting.FileSystemObject")
-            set f=fs.CreateTextFile("E:\spaggiari\prova.txt",true)
+            set f=fs.CreateTextFile("dati.txt",true)
             f.writeLine(nome)
             f.writeLine(password)
             f.close
